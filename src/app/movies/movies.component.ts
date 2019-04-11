@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { MoviesService } from '../movies.service';
 import { Movie } from '../movie';
@@ -11,9 +12,11 @@ import { Movie } from '../movie';
 })
 export class MoviesComponent implements OnInit {
 
-  movies: Movie[];
+ // movies: Movie[];
   displayedColumns: string[] = ['id', 'name', 'genre', 'year', 'directorId', 'details', 'edit', 'delete'];
+  moviesDataSource = new MatTableDataSource<Movie>();
   directorId: number;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private moviesService: MoviesService,
@@ -23,6 +26,7 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit() {
     this.getMovies();
+    this.moviesDataSource.paginator = this.paginator;
   }
 
   getMovies(): void {
@@ -31,9 +35,10 @@ export class MoviesComponent implements OnInit {
     if (path === 'director-movies') {
       this.directorId = +this.route.snapshot.paramMap.get('id');
       console.log(this.directorId);
-      this.moviesService.getMovies().subscribe(movies => this.movies = movies.filter(m => m.DirectorId == this.directorId));
+      this.moviesService.getMovies().subscribe(movies => this.moviesDataSource.data = movies.filter(m => m.DirectorId == this.directorId));
     } else {
-      this.moviesService.getMovies().subscribe(movies => this.movies = movies);
+      console.log('else');
+      this.moviesService.getMovies().subscribe(movies => this.moviesDataSource.data = movies);
     }
   }
 
@@ -46,7 +51,7 @@ export class MoviesComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.movies = this.movies.filter(m => m.Id != id);
+    this.moviesDataSource.data = this.moviesDataSource.data.filter(m => m.Id != id);
     this.moviesService.deleteMovie(id).subscribe();
   }
 

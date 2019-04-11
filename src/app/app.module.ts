@@ -4,7 +4,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatCardModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDialogModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatButtonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDialogModule, MatPaginatorModule } from '@angular/material';
 
 
 import { AppRoutnigModule } from './app-routnig.module';
@@ -48,7 +48,8 @@ import { DirectorDeleteDialogComponent } from './director-delete-dialog/director
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent],

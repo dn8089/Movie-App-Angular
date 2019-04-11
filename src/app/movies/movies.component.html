@@ -2,7 +2,7 @@
   <mat-card-title>Movies</mat-card-title>
   <a mat-raised-button color="primary" routerLink="/add-movie">ADD NEW</a>
   <mat-card-content>
-    <table mat-table *ngIf="movies?.length > 0" [dataSource]="movies" class="mat-elevation-z8">
+    <table mat-table *ngIf="moviesDataSource.data?.length > 0" [dataSource]="moviesDataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let movie">{{movie.Id}}</td>
@@ -52,7 +52,8 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <p *ngIf="movies?.length == 0" style="margin-top: 16px">There is not a movie for director with id={{directorId}}.</p>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <p *ngIf="moviesDataSource.data?.length == 0" style="margin-top: 16px">There is not a movie for director with id={{directorId}}.</p>
   </mat-card-content>
   <!--<table>
     <tr>

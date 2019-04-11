@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { DirectorsService } from '../directors.service';
 import { Director } from '../director';
 import { DirectorDeleteDialogComponent } from '../director-delete-dialog/director-delete-dialog.component';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'app-directors',
@@ -14,24 +13,24 @@ import { from } from 'rxjs';
 })
 export class DirectorsComponent implements OnInit {
 
-  //director= 'XXXX';
-  //director: string;
-  directors: Director[];
   displayedColumns: string[] = ['id', 'name', 'lastName', 'age', 'details', 'edit', 'delete', 'movies'];
+  directorsDataSource = new MatTableDataSource<Director>();
   dialogResult;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private directorsService : DirectorsService,
-    private router: Router, 
+    private router: Router,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.getDirectors();
+    this.directorsDataSource.paginator = this.paginator;
   }
 
   getDirectors(): void {
-    this.directorsService.getDirectors().subscribe(directors => this.directors = directors);
+    this.directorsService.getDirectors().subscribe(directors => this.directorsDataSource.data = directors);
   }
 
   getDetails(id: number): void {
@@ -57,7 +56,7 @@ export class DirectorsComponent implements OnInit {
   delete(id: number): void {
     console.log(`delete func ${id}`);
     if (this.dialogResult === 'Confirm' ) {
-      this.directors = this.directors.filter(d => d.Id != id);
+      this.directorsDataSource.data = this.directorsDataSource.data.filter(d => d.Id != id);
       this.directorsService.deleteDirector(id).subscribe();
     }
   }
