@@ -1,0 +1,71 @@
+<mat-card>
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Name:</mat-label>
+        <input matInput type="text" formControlName="Name" required/>        
+      </mat-form-field>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.maxlength">
+          Name must be less then 201 characters long.
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Genre:</mat-label>
+        <input matInput type="text" formControlName="Genre" required/>
+      </mat-form-field>
+      <div *ngIf="genre.invalid && (genre.dirty || genre .touched)"
+          class="alert alert-danger">
+        <div *ngIf="genre.errors.required">
+          Genre is required.
+        </div>
+        <div *ngIf="genre.errors.maxlength">
+          Genre must be less then 51 characters long.
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Year:</mat-label>
+        <input matInput type="number" formControlName="Year" required/>
+      </mat-form-field>
+      <div *ngIf="year.invalid && (year.dirty || year.touched)"
+          class="alert alert-danger">
+        <div *ngIf="year.errors.required">
+          Year is required.
+        </div>
+        <div *ngIf="year.errors.min">
+          Year must be greater than 1799.
+        </div>        
+      </div>
+
+      <mat-form-field>
+        <mat-label>Director:</mat-label>
+        <mat-select formControlName="DirectorId">
+          <mat-option *ngFor="let director of directors" [value]="director.Id">
+            {{director.Name + ' ' + director.Lastname}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="director.invalid && (director.dirty || director.touched)"
+          class="alert alert-danger">
+        <div *ngIf="director.errors.required">
+          Director is required.
+        </div>   
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!movieForm.valid">Save</button>
+    </form>
+  </mat-card-content>
+  <!--<p>
+    Form Status: {{ movieForm.status }}
+  </p>-->
+  <mat-card-actions>
+    <button mat-raised-button color="primary"  (click)="moviesService.goBack()">GO BACK</button>
+  </mat-card-actions>
+</mat-card>

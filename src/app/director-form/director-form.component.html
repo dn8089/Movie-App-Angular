@@ -1,0 +1,65 @@
+<mat-card>
+  <mat-card-title>{{title}}</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="directorForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>First name:</mat-label>
+        <input matInput type="text" formControlName="Name" required/>        
+      </mat-form-field>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)"
+          class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Name must be at least 2 characters long.
+        </div>
+        <div *ngIf="name.errors.maxlength">
+          Name must be less then 21 characters long.
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Last name:</mat-label>
+        <input matInput type="text" formControlName="Lastname" required/>
+      </mat-form-field>
+      <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+          class="alert alert-danger">
+        <div *ngIf="lastname.errors.required">
+          Last name is required.
+        </div>
+        <div *ngIf="lastname.errors.minlength">
+          Last name must be at least 3 characters long.
+        </div>
+        <div *ngIf="lastname.errors.maxlength">
+          Last name must be less then 31 characters long.
+        </div>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Age:</mat-label>
+        <input matInput type="number" formControlName="Age" required/>
+      </mat-form-field>
+      <div *ngIf="age.invalid && (age.dirty || age.touched)"
+          class="alert alert-danger">
+        <div *ngIf="age.errors.required">
+          Age is required.
+        </div>
+        <div *ngIf="age.errors.min">
+          Age must be betwwen 15 and 100.
+        </div>
+        <div *ngIf="age.errors.max">
+          Age must be betwwen 15 and 100.
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!directorForm.valid">Save</button>
+    </form>
+  </mat-card-content>
+  <!--<p>
+    Form Status: {{ directorForm.status }}
+  </p>-->
+  <mat-card-actions>
+    <button mat-raised-button color="primary"  (click)="directorService.goBack()">GO BACK</button>
+  </mat-card-actions>
+</mat-card>

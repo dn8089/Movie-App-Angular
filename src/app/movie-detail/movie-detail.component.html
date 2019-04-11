@@ -1,0 +1,17 @@
+<mat-card *ngIf="movie">
+  <mat-card-title>Details</mat-card-title>
+  <mat-card-content>
+    <ul>
+        <li><span>Id:</span> {{movie.Id}}</li>
+        <li><span>Name:</span> {{movie.Name}}</li>
+        <li><span>Genre:</span> {{movie.Genre}}</li>
+        <li><span>Year:</span> {{movie.Year}}</li>
+        <li><span>Director:</span> {{movie.Director.Name}} {{movie.Director.Lastname}}</li>
+      </ul>
+  </mat-card-content>
+  
+  <mat-card-actions>
+      <button mat-raised-button color="primary"  (click)="moviesService.goBack()">GO BACK</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card *ngIf="!movie">Movie with id {{id}} doesn't exists!</mat-card>

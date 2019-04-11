@@ -1,0 +1,16 @@
+<mat-card *ngIf="director">
+  <mat-card-title>Details</mat-card-title>
+  <mat-card-content>
+    <ul>
+        <li><span>Id:</span> {{director.Id}}</li>
+        <li><span>First name:</span> {{director.Name}}</li>
+        <li><span>Last name:</span> {{director.Lastname}}</li>
+        <li><span>Age:</span> {{director.Age}}</li>
+      </ul>
+  </mat-card-content>
+  
+  <mat-card-actions>
+      <button mat-raised-button color="primary"  (click)="directorService.goBack()">GO BACK</button>
+  </mat-card-actions>
+</mat-card>
+<mat-card *ngIf="!director">Director with id {{id}} doesn't exists!</mat-card>

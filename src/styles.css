@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+/*@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '@angular/material/prebuilt-themes/purple-green.css';*/
+body {
+    margin: 0;
+}
+.navigation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 998;
+}
+.mat-card {
+    margin-top: 64px;
+}
+table {
+    margin-top: 16px !important;
+    width: 40%;
+}
