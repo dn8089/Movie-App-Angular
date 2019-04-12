@@ -2,29 +2,33 @@
   <mat-card-title>Movies</mat-card-title>
   <a mat-raised-button color="primary" routerLink="/add-movie">ADD NEW</a>
   <mat-card-content>
-    <table mat-table *ngIf="moviesDataSource.data?.length > 0" [dataSource]="moviesDataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
+    <mat-form-field class="filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="moviesDataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
         <td mat-cell *matCellDef="let movie">{{movie.Id}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let movie">{{movie.Name}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="genre">
-        <th mat-header-cell *matHeaderCellDef>Genre</th>
+      <ng-container matColumnDef="Genre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Genre</th>
         <td mat-cell *matCellDef="let movie">{{movie.Genre}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="year">
-        <th mat-header-cell *matHeaderCellDef>Year</th>
+      <ng-container matColumnDef="Year">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Year</th>
         <td mat-cell *matCellDef="let movie">{{movie.Year}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="directorId">
-          <th mat-header-cell *matHeaderCellDef>Director id</th>
+      <ng-container matColumnDef="DirectorId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Director id</th>
           <td mat-cell *matCellDef="let movie">{{movie.DirectorId}}</td>
         </ng-container>
 

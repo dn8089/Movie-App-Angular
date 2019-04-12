@@ -21,3 +21,6 @@ table {
     margin-top: 16px !important;
     width: 100%;
 }
+.filter .mat-form-field-wrapper {
+    padding-top: 1.25em;
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 import { DirectorsService } from '../directors.service';
 import { Director } from '../director';
@@ -13,10 +13,11 @@ import { DirectorDeleteDialogComponent } from '../director-delete-dialog/directo
 })
 export class DirectorsComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'lastName', 'age', 'details', 'edit', 'delete', 'movies'];
+  displayedColumns: string[] = ['Id', 'Name', 'Lastname', 'Age', 'details', 'edit', 'delete', 'movies'];
   directorsDataSource = new MatTableDataSource<Director>();
   dialogResult;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private directorsService : DirectorsService,
@@ -27,6 +28,7 @@ export class DirectorsComponent implements OnInit {
   ngOnInit() {
     this.getDirectors();
     this.directorsDataSource.paginator = this.paginator;
+    this.directorsDataSource.sort = this.sort;
   }
 
   getDirectors(): void {
@@ -63,6 +65,10 @@ export class DirectorsComponent implements OnInit {
 
   getMovies(id: number): void {
     this.router.navigate([`director-movies/${id}`]);
+  }
+
+  applyFilter(filterValue: string) {
+    this.directorsDataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
