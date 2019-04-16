@@ -17,12 +17,6 @@ export class DirectorFormComponent implements OnInit {
   path = this.route.snapshot.url[0].path;
   title: string = 'Add director';
 
-  /*directorForm = new FormGroup({
-    Name: new FormControl(''),
-    Lastname: new FormControl(''),
-    Age: new FormControl('')
-  });*/
-
   directorForm = this.formBuilder.group({
     Name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
     Lastname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -62,7 +56,6 @@ export class DirectorFormComponent implements OnInit {
   }
 
   getDirector() : void {
-    //const id = +this.route.snapshot.paramMap.get('id'); //Route parameters are always strings. The JavaScript (+) operator converts the string to a number, which is what a hero id should be.
     console.log('Id: ' + this.id);
     this.directorService.getDirector(this.id)
       .subscribe(d => {this.director = d; 

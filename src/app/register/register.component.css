@@ -1,0 +1,10 @@
+.mat-form-field {
+    display: block;
+    width: 20%;
+}
+.mat-form-field-wrapper {
+    padding-bottom: 8px;
+}
+.alert {
+    margin-bottom: 6px;
+}
