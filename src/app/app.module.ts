@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -9,6 +9,8 @@ import { MatToolbarModule, MatCardModule, MatButtonModule, MatTableModule,
 
 
 import { AppRoutnigModule } from './app-routnig.module';
+import { AuthGuard } from './auth/auth.guard';
+import { AuthInterceptor } from './auth/auth-interceptor';
 
 import { AppComponent } from './app.component';
 import { DirectorsComponent } from './directors/directors.component';
@@ -53,7 +55,10 @@ import { DirectorDeleteDialogComponent } from './director-delete-dialog/director
     MatPaginatorModule,
     MatSortModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [DirectorDeleteDialogComponent]
 })

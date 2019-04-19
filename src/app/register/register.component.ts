@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,7 @@ export class RegisterComponent implements OnInit {
     Password: ['', [Validators.required, Validators.minLength(6)]],
     ConfirmPassword: ['', [Validators.required]]
   });
+  isRegistrationError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +34,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.user = this.userForm.value;
-    this.userService.registerUser(this.user).subscribe();
+    this.userService.registerUser(this.user).subscribe((data: any) => {
+      console.log(data);
+    },
+    (err : HttpErrorResponse) => {
+      this.isRegistrationError = true;
+      console.error(err);
+    });
   }
 
 }

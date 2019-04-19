@@ -1,9 +1,9 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar class="mat-toolbar mat-primary navigation-bar">
-  <a mat-button routerLink="/directors">Directors</a>
+  <a mat-button routerLink="/directors">Directors</a> <!-- routerLinkActive='active' -->
   <a mat-button routerLink="/movies">Movies</a>
+  <a mat-button routerLink="/logIn">Log in</a>
+  <a mat-button routerLink="/registration">Registration</a>
+  <a mat-button (click)=userService.logOut()>Log out</a>
 </mat-toolbar>
 <router-outlet></router-outlet>
-<app-login></app-login>
-<app-register></app-register>
 <!--<app-messages></app-messages>-->

@@ -28,7 +28,7 @@ export class DirectorsService {
   /** GET directors from the server */
   getDirectors(): Observable<Director[]> {
     this.messageService.add('DirectorsService: fetches directors')
-    return this.http.get<Director[]>(this.directorsUrl)
+    return this.http.get<Director[]>(this.directorsUrl, { headers: { 'No-Auth': 'True' }})
       .pipe(
         tap(_ => this.log('fetched directors')),
         catchError(this.handleError<Director[]>('getDirectors', []))
@@ -38,7 +38,7 @@ export class DirectorsService {
   /** GET director by id from the server */
   getDirector(id: number): Observable<Director> {
     const url = `${this.directorsUrl}/${id}`;
-    return this.http.get<Director>(url)
+    return this.http.get<Director>(url, { headers: { 'No-Auth': 'True' }})
       .pipe(
         tap(_ => this.log(`fetched director id=${id}`)),
         catchError(this.handleError<Director>(`getDirector id=${id}`))

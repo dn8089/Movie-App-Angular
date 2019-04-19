@@ -52,7 +52,6 @@ export class DirectorFormComponent implements OnInit {
       this.directorService.addDirector(this.directorForm.value as Director).subscribe(d => console.log('Value: ' + d.Id), err => console.error('Observer got an error: ' + err), () => this.directorService.goBack());
       this.director = null;
     }
-    console.log(this.director);
   }
 
   getDirector() : void {

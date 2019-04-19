@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { UserService } from '../user.service';
 import { User } from '../user';
+
 
 @Component({
   selector: 'app-login',
@@ -14,19 +17,15 @@ export class LoginComponent implements OnInit {
   
   user: User;
   userForm = this.formBuilder.group({
-    Email: ['', Validators.required],
+    Email: ['', [Validators.required, Validators.email]],
     Password: ['', Validators.required]
   });
-
-  /*sendData = {
-    "Email": 'gaga@gmail.com',
-    "Password": 'Gaga.123',
-    "ConfirmPassword": 'Gaga.123'
-  };*/
+  isLoginError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -37,8 +36,15 @@ export class LoginComponent implements OnInit {
   get password() { return this.userForm.get('Password'); }
 
   onSubmit() {
-    console.log('login');
-    //this.service().subscribe(u => {this.user = u; console.log(u.Email)});
-    //this.getUserInfo().subscribe(u => {this.user = u; localStorage.setItem('userToken', u)});
+    this.user = this.userForm.value;
+    this.userService.logIn(this.user).subscribe((data : any)=> {
+      console.log(data);
+      localStorage.setItem('userToken', data.access_token);
+      this.router.navigate(['/directors']);
+    },
+    (err : HttpErrorResponse) => {
+      this.isLoginError = true;
+      console.error(err);
+    });
   }
 }

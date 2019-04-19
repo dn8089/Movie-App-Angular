@@ -28,7 +28,7 @@ export class MoviesService {
   /** GET movies from the server */
   getMovies(): Observable<Movie[]> {
     this.messageService.add('MoviesService: fetches movies');
-    return this.http.get<Movie[]>(this.moviesUrl)
+    return this.http.get<Movie[]>(this.moviesUrl, { headers: { 'No-Auth': 'True' }})
       .pipe(
         tap(_ => this.log('fetched movies')),
         catchError(this.handleError<Movie[]>('getMovies', []))
@@ -37,8 +37,8 @@ export class MoviesService {
 
   /** GET movie by id from the server */
   getMovie(id: number): Observable<Movie> {
-    const url = `${this.moviesUrl}/${id}`;
-    return this.http.get<Movie>(url)
+    const url = `${this.moviesUrl}/${id}`;    
+    return this.http.get<Movie>(url, { headers: { 'No-Auth': 'True' }})
       .pipe(
         tap(_ => this.log(`fetched movie id=${id}`)),
         catchError(this.handleError<Movie>('getMovie'))
@@ -68,10 +68,10 @@ export class MoviesService {
   deleteMovie(id: number): Observable<Movie> {
     const url = `${this.moviesUrl}/${id}`;
     return this.http.delete<Movie>(url, httpOptions)
-      .pipe(
+      /*.pipe(
         tap(_ => this.log(`deleted movie id=${id}`)),
         catchError(this.handleError<Movie>('deleteMovie'))
-      );
+      );*/
   }
 
   goBack() : void {

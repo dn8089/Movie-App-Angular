@@ -4,6 +4,7 @@ import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
 
 import { MoviesService } from '../movies.service';
 import { Movie } from '../movie';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-movies',
@@ -32,7 +33,7 @@ export class MoviesComponent implements OnInit {
 
   getMovies(): void {
     const path = this.route.snapshot.url[0].path;
-    console.log(path);
+    console.log('Path: ' + path);
     if (path === 'director-movies') {
       this.directorId = +this.route.snapshot.paramMap.get('id');
       console.log(this.directorId);
@@ -51,8 +52,12 @@ export class MoviesComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.moviesDataSource.data = this.moviesDataSource.data.filter(m => m.Id != id);
-    this.moviesService.deleteMovie(id).subscribe();
+    this.moviesService.deleteMovie(id).subscribe(() => {
+      this.moviesDataSource.data = this.moviesDataSource.data.filter(m => m.Id != id);
+    },
+    (err : HttpErrorResponse) => {
+      console.error(err);
+    });
   }
 
   applyFilter(filterValue: string) {
