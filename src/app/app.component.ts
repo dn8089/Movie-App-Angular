@@ -8,6 +8,7 @@ import { UserService } from './user.service';
 })
 export class AppComponent {
   title = 'Movie App';
+  //user = localStorage.getItem('userToken');
 
   constructor(private userService: UserService) {}
 }
